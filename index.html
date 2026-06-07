@@ -1,1 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Favour Evan — AI Prompt Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--ink:#0e0e0e;--paper:#f5f0e8;--cream:#ede8dc;--gold:#b8922a;--gold-light:#d4a843;--rust:#9c3d2e;--sage:#3d5a47;--mid:#6b6560;--border:#ccc5b5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(245,240,232,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'DM Mono',monospace;font-size:0.78rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--ink)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:80px}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem 5rem 4rem}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,5.5rem);font-weight:900;line-height:1.0;letter-spacing:-0.02em;margin-bottom:1.5rem}
+h1 em{font-style:italic;color:var(--rust)}
+.hero-sub{font-size:1.05rem;color:var(--mid);max-width:420px;margin-bottom:2.5rem;line-height:1.7}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.5rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 0.8rem;border:1px solid var(--border);color:var(--mid);background:transparent;border-radius:2px}
+.hero-stat-row{display:flex;gap:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+.stat-number{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--ink);line-height:1}
+.stat-label{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-top:0.3rem}
+.hero-right{position:relative;background:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;padding:3rem;overflow:hidden}
+.hero-quote{font-family:'Playfair Display',serif;font-size:1.35rem;font-style:italic;color:rgba(255,255,255,0.85);line-height:1.6;position:relative;z-index:2;margin-bottom:2rem;padding-left:1.5rem;border-left:3px solid var(--gold)}
+.tools-label{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.8rem}
+.tools-list{display:flex;flex-wrap:wrap;gap:0.5rem}
+.tool-pill{font-family:'DM Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border-radius:100px}
+.tool-pill.gold{border-color:var(--gold);color:var(--gold-light)}
+section{padding:6rem 4rem}
+.section-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:3.5rem}
+.section-num{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--gold);letter-spacing:0.12em}
+h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,3rem);font-weight:700;line-height:1.1}
+.about{background:var(--cream);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;align-items:start}
+.about-text p{color:var(--mid);font-size:1.05rem;line-height:1.8;margin-bottom:1.2rem}
+.about-text p strong{color:var(--ink);font-weight:600}
+.sidebar-block{border:1px solid var(--border);padding:1.5rem;margin-bottom:1rem;background:var(--paper)}
+.sidebar-block-title{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem}
+.sidebar-block ul{list-style:none;padding:0}
+.sidebar-block li{font-size:0.9rem;color:var(--mid);padding:0.3rem 0;border-bottom:1px solid var(--cream);display:flex;align-items:center;gap:0.5rem}
+.sidebar-block li::before{content:'→';color:var(--gold);font-size:0.75rem}
+.cases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border)}
+.case-card{background:var(--paper);padding:2.5rem;transition:background 0.3s}
+.case-card:hover{background:var(--cream)}
+.case-card.featured{grid-column:span 2;background:var(--ink);color:var(--paper)}
+.case-num{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:1rem}
+.case-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:0.8rem;line-height:1.2}
+.case-card.featured .case-title{font-size:2rem}
+.case-card.featured .case-meta{color:rgba(255,255,255,0.5)}
+.case-card.featured .case-desc{color:rgba(255,255,255,0.75)}
+.case-card.featured .case-outcome{color:var(--gold-light)}
+.case-meta{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem}
+.case-desc{font-size:0.95rem;color:var(--mid);line-height:1.7;margin-bottom:1.5rem}
+.case-outcome{font-family:'DM Mono',monospace;font-size:0.8rem;font-weight:500;color:var(--sage);display:flex;align-items:center;gap:0.5rem}
+.case-outcome::before{content:'✦';font-size:0.6rem;color:var(--gold)}
+.case-steps{margin:1rem 0 1.5rem;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
+.case-steps li{font-size:0.85rem;color:rgba(255,255,255,0.65);padding:0.5rem 0.8rem;border:1px solid rgba(255,255,255,0.1);border-radius:2px;display:flex;align-items:center;gap:0.5rem}
+.case-steps li::before{content:attr(data-step);font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold);min-width:1.2rem}
+.workflow{background:var(--ink);color:var(--paper)}
+.workflow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.workflow-step{padding:2rem 1.5rem;text-align:center}
+.step-circle{width:5rem;height:5rem;border-radius:50%;border:1px solid rgba(184,146,42,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:var(--gold);background:rgba(184,146,42,0.05)}
+.step-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--paper);margin-bottom:0.5rem}
+.step-desc{font-size:0.8rem;color:rgba(255,255,255,0.45);line-height:1.5}
+.skills{background:var(--cream)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.skill-block{padding:2rem;border:1px solid var(--border);background:var(--paper);position:relative;transition:transform 0.2s,box-shadow 0.2s}
+.skill-block:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.07)}
+.skill-icon{font-size:1.5rem;margin-bottom:1rem}
+.skill-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
+.skill-desc{font-size:0.875rem;color:var(--mid);line-height:1.6}
+.skill-badge{position:absolute;top:1.2rem;right:1.2rem;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,146,42,0.3);padding:0.2rem 0.5rem;border-radius:2px}
+.exp-item{display:grid;grid-template-columns:180px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+.exp-date{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;color:var(--gold);padding-top:0.2rem}
+.exp-firm{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:0.2rem}
+.exp-role{font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid);margin-bottom:0.8rem}
+.exp-points{list-style:none;padding:0}
+.exp-points li{font-size:0.9rem;color:var(--mid);padding:0.25rem 0 0.25rem 1rem;position:relative;line-height:1.6}
+.exp-points li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:0.7rem;top:0.4rem}
+.contact{background:var(--ink);color:var(--paper);text-align:center;padding:6rem 4rem}
+.contact h2{font-size:clamp(2.5rem,5vw,4.5rem);margin-bottom:1.5rem}
+.contact h2 em{color:var(--gold-light);font-style:italic}
+.contact-sub{font-size:1rem;color:rgba(255,255,255,0.5);margin-bottom:3rem}
+.contact-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.contact-btn{font-family:'DM Mono',monospace;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 2.2rem;border:1px solid;text-decoration:none;transition:all 0.2s;border-radius:2px}
+.contact-btn.primary{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.contact-btn.secondary{background:transparent;border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)}
+footer{background:#070707;padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center}
+.footer-name{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:rgba(255,255,255,0.3);text-transform:uppercase}
+.footer-note{font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.2)}
+@media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}section{padding:4rem 1.5rem}.hero{grid-template-columns:1fr}.hero-left{padding:5rem 1.5rem 2rem}.hero-right{padding:3rem 1.5rem;min-height:340px}.about-grid{grid-template-columns:1fr;gap:2rem}.cases-grid{grid-template-columns:1fr}.case-card.featured{grid-column:span 1}.case-steps{grid-template-columns:1fr}.workflow-steps{grid-template-columns:1fr}.skills-grid{grid-template-columns:1fr}.exp-item{grid-template-columns:1fr;gap:0.5rem}footer{flex-direction:column;gap:0.5rem;text-align:center}}
+</style>
+</head>
+<body>
+<nav>
+<div class="nav-logo">Favour C. Evan</div>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#cases">Case Studies</a></li>
+<li><a href="#workflow">Workflow</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+<section class="hero" id="top">
+<div class="hero-left">
+<div class="hero-eyebrow">AI Prompt Engineer · Legal Automation Specialist</div>
+<h1>Turning Legal<br/><em>Complexity</em><br/>into AI Leverage</h1>
+<p class="hero-sub">Nigerian-licensed attorney with 5+ years in litigation and U.S. immigration law — now engineering AI workflows that produce attorney-ready, high-stakes documents at scale.</p>
+<div class="hero-tags">
+<span class="tag">Prompt Engineering</span>
+<span class="tag">Legal AI Workflows</span>
+<span class="tag">EB-2 NIW</span>
+<span class="tag">SOP Creation</span>
+<span class="tag">Claude</span>
+<span class="tag">Gemini</span>
+<span class="tag">ChatGPT</span>
+<span class="tag">Process Automation</span>
+</div>
+<div class="hero-stat-row">
+<div class="stat-block"><div class="stat-number">90%</div><div class="stat-label">Petition Approval Rate</div></div>
+<div class="stat-block"><div class="stat-number">5+</div><div class="stat-label">Years Legal Practice</div></div>
+<div class="stat-block"><div class="stat-number">3+</div><div class="stat-label">Years AI Tooling</div></div>
+</div>
+</div>
+<div class="hero-right">
+<blockquote class="hero-quote">"The best prompt engineer isn't just a writer — they're a systems architect who knows exactly what output looks like before they type the first word."</blockquote>
+<div class="hero-tools">
+<div class="tools-label">Primary AI Stack</div>
+<div class="tools-list">
+<span class="tool-pill gold">Claude</span>
+<span class="tool-pill gold">Gemini</span>
+<span class="tool-pill gold">ChatGPT</span>
+<span class="tool-pill">Perplexity</span>
+<span class="tool-pill">Docketwise</span>
+<span class="tool-pill">Google Workspace</span>
+</div>
+</div>
+</div>
+</section>
+<section class="about" id="about">
+<div class="section-header"><span class="section-num">01</span><h2>Who I Am</h2></div>
+<div class="about-grid">
+<div class="about-text">
+<p>I'm a <strong>Nigerian-licensed attorney and AI workflow engineer</strong> who operates at the intersection of legal expertise and artificial intelligence. My background in litigation, corporate law, and U.S. immigration gives me something most prompt engineers don't have: a deep understanding of what <em>high-stakes structured output</em> actually looks like.</p>
+<p>Over the past 3+ years, I've moved beyond casual AI use to build <strong>repeatable, documented workflows</strong> that produce attorney-ready documents — EB-2 NIW petition briefs, RFE responses, affidavits, and cover letters — consistently and at scale.</p>
+<p>I think in <strong>processes, not one-offs</strong>. Every workflow I build gets documented into an SOP so it can be handed off, replicated, and improved.</p>
+</div>
+<div class="about-sidebar">
+<div class="sidebar-block">
+<div class="sidebar-block-title">Core Domains</div>
+<ul>
+<li>U.S. Employment-Based Immigration (EB-1A, EB-2 NIW, O-1A)</li>
+<li>Legal Document Drafting & Review</li>
+<li>Prompt Engineering for Structured Outputs</li>
+<li>AI Workflow Design & Documentation</li>
+<li>SOP Creation & Process Scaling</li>
+</ul>
+</div>
+<div class="sidebar-block">
+<div class="sidebar-block-title">Admitted & Certified</div>
+<ul>
+<li>Nigerian Bar Association</li>
+<li>Institute of Chartered Mediators & Conciliators</li>
+<li>Environmental Law Institute (USA)</li>
+<li>Certified Project Manager — Open University UK</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="cases" id="cases">
+<div class="section-header"><span class="section-num">02</span><h2>AI Workflow Case Studies</h2></div>
+<div class="cases-grid">
+<div class="case-card featured">
+<div class="case-num">Case Study 01 — Featured</div>
+<div class="case-title">EB-2 NIW Petition Brief System</div>
+<div class="case-meta">Employment-Based Immigration · Multi-client · Repeatable Workflow</div>
+<p class="case-desc">Designed and deployed a complete AI-assisted workflow for drafting National Interest Waiver (EB-2 NIW) petition briefs across multiple clients in STEM, healthcare, and technology — consistently producing attorney-ready output.</p>
+<ul class="case-steps">
+<li data-step="1">Client profile intake & evidence mapping</li>
+<li data-step="2">Three-prong Skidmore analysis prompt chain</li>
+<li data-step="3">Structured argument scaffolding per USCIS criteria</li>
+<li data-step="4">Evidence integration & citation prompts</li>
+<li data-step="5">Attorney QA review layer prompts</li>
+<li data-step="6">SOP documentation for team replication</li>
+</ul>
+<div class="case-outcome">Result: 90% approval rate across EB-1A, EB-2 NIW & O-1A petitions</div>
+</div>
+<div class="case-card">
+<div class="case-num">Case Study 02</div>
+<div class="case-title">RFE Response Drafting Pipeline</div>
+<div class="case-meta">Compliance Documentation · USCIS · High-Stakes Outputs</div>
+<p class="case-desc">Built a structured AI workflow for drafting Requests for Evidence (RFE) responses — turning complex evidentiary materials into coherent, regulation-aligned arguments within tight USCIS deadlines.</p>
+<div class="case-outcome">Consistently passed attorney review with minimal revision cycles</div>
+</div>
+<div class="case-card">
+<div class="case-num">Case Study 03</div>
+<div class="case-title">High-Volume NIW Documentation Workflow</div>
+<div class="case-meta">Legal Research Firm · Scalable Output · Multi-Field Clients</div>
+<p class="case-desc">Developed AI-assisted prompts for large-volume NIW petition documentation across diverse industries, with QA prompt layers reviewing structural integrity, argument coherence, and grammatical precision at scale.</p>
+<div class="case-outcome">Consistent quality across high-volume petition drafting</div>
+</div>
+<div class="case-card">
+<div class="case-num">Case Study 04</div>
+<div class="case-title">Arbitration Vacation Motion — Research & Drafting</div>
+<div class="case-meta">Federal Arbitration Act · Independent Project · Complex Research</div>
+<p class="case-desc">Used AI to systematically research the Federal Arbitration Act and state-level arbitration laws, designing prompt chains to synthesize legal precedents and draft a complete motion package.</p>
+<div class="case-outcome">Complete motion package including affidavits and responses to opposing counsel</div>
+</div>
+</div>
+</section>
+<section class="workflow" id="workflow">
+<div class="section-header"><span class="section-num">03</span><h2>My Prompt Engineering Process</h2></div>
+<div class="workflow-steps">
+<div class="workflow-step"><div class="step-circle">01</div><div class="step-title">Diagnose</div><div class="step-desc">Identify the task, output format, and quality standard before writing a single word</div></div>
+<div class="workflow-step"><div class="step-circle">02</div><div class="step-title">Architect</div><div class="step-desc">Design a prompt chain — breaking complex tasks into logical, sequenced AI steps</div></div>
+<div class="workflow-step"><div class="step-circle">03</div><div class="step-title">Engineer</div><div class="step-desc">Write, test, and refine prompts with role framing, context injection, and output constraints</div></div>
+<div class="workflow-step"><div class="step-circle">04</div><div class="step-title">Validate</div><div class="step-desc">Run outputs through a QA layer — checking accuracy, structure, and usability</div></div>
+<div class="workflow-step"><div class="step-circle">05</div><div class="step-title">Document</div><div class="step-desc">Package the workflow into an SOP so any team member can replicate it</div></div>
+</div>
+</section>
+<section class="skills" id="skills">
+<div class="section-header"><span class="section-num">04</span><h2>Core Capabilities</h2></div>
+<div class="skills-grid">
+<div class="skill-block"><div class="skill-badge">Primary</div><div class="skill-icon">⚙️</div><div class="skill-title">Prompt Engineering</div><p class="skill-desc">Writing, iterating, and optimizing prompts for structured, high-quality outputs. Specializing in multi-step prompt chains, role framing, and constraint-based generation.</p></div>
+<div class="skill-block"><div class="skill-badge">Primary</div><div class="skill-icon">🔄</div><div class="skill-title">Repeatable AI Workflows</div><p class="skill-desc">Building end-to-end AI processes that can be handed off and replicated with consistent inputs, predictable outputs, and failure modes accounted for.</p></div>
+<div class="skill-block"><div class="skill-badge">Primary</div><div class="skill-icon">📋</div><div class="skill-title">SOP Documentation</div><p class="skill-desc">Translating complex AI workflows into clear, step-by-step standard operating procedures that enable teams to replicate high-quality output without deep expertise.</p></div>
+<div class="skill-block"><div class="skill-icon">⚖️</div><div class="skill-title">Legal Document Intelligence</div><p class="skill-desc">Deep expertise in prompting AI for legal outputs — immigration briefs, motions, affidavits — where precision, citation accuracy, and structure are non-negotiable.</p></div>
+<div class="skill-block"><div class="skill-icon">🔍</div><div class="skill-title">Research & Synthesis</div><p class="skill-desc">Using AI to conduct and synthesize legal and factual research at speed while maintaining citation integrity across case law, statutes, and regulatory frameworks.</p></div>
+<div class="skill-block"><div class="skill-icon">🧠</div><div class="skill-title">Systems Thinking</div><p class="skill-desc">Trained in litigation strategy and case management — naturally approaching AI problems as process design challenges with structure built from ambiguity.</p></div>
+</div>
+</section>
+<section class="experience" id="experience">
+<div class="section-header"><span class="section-num">05</span><h2>Professional Experience</h2></div>
+<div class="exp-list">
+<div class="exp-item">
+<div class="exp-date">Jan 2023 – Oct 2025</div>
+<div>
+<div class="exp-firm">The Brake Legal Group & Law Office of Akintunde Adeyemo PLLC</div>
+<div class="exp-role">Virtual Immigration Paralegal · AI Workflow Practitioner · Remote (U.S.)</div>
+<ul class="exp-points">
+<li>Engineered AI-assisted workflows for EB-2 NIW, EB-1A, and O-1A petition briefs — achieving a 90% USCIS approval rate</li>
+<li>Built repeatable prompt systems for RFE response drafting under tight deadlines</li>
+<li>Developed QA prompt layers for high-volume NIW documentation review at scale</li>
+<li>Managed multi-matter caseloads in Docketwise across simultaneous active immigration files</li>
+</ul>
+</div>
+</div>
+<div class="exp-item">
+<div class="exp-date">Oct 2025 – May 2026</div>
+<div>
+<div class="exp-firm">Dallah Law Firm</div>
+<div class="exp-role">Associate Attorney — Family Law & Civil Litigation · Nigeria</div>
+<ul class="exp-points">
+<li>Applied AI drafting workflows to litigation documents — improving output speed and consistency</li>
+<li>Conducted AI-assisted legal research to support litigation strategy across family and civil matters</li>
+</ul>
+</div>
+</div>
+<div class="exp-item">
+<div class="exp-date">Jan 2019 – Jan 2020</div>
+<div>
+<div class="exp-firm">C.C Nwabuko and Associates</div>
+<div class="exp-role">Legal Associate · Litigation · Nigeria</div>
+<ul class="exp-points">
+<li>Drafted complex motions, appellate briefs, and procedural filings for trial and appellate courts</li>
+<li>Managed caseloads across corporate disputes, negligence, and breach of contract matters</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="contact" id="contact">
+<h2>Let's Build<br/><em>Smarter</em> Workflows</h2>
+<p class="contact-sub">Available for AI Prompt Engineering roles · Remote · Immediate Start</p>
+<div class="contact-links">
+<a href="mailto:favour@example.com" class="contact-btn primary">Get In Touch</a>
+<a href="http://linkedin.com/in/favourchiamakaevan-400706361" target="_blank" class="contact-btn secondary">LinkedIn Profile</a>
+<a href="https://github.com/Makyzee" target="_blank" class="contact-btn secondary">GitHub</a>
+</div>
+</section>
+<footer>
+<div class="footer-name">Favour Chiamaka Evan · AI Prompt Engineer & Legal Automation Specialist</div>
+<div class="footer-note">Abuja, Nigeria · Available Remotely</div>
+</footer>
+</body>
+</html>
 
